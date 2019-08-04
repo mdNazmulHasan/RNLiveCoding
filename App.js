@@ -10,7 +10,11 @@ import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, Image } from "react-native";
 import mockData from "./src/util/mock/mockdata";
 import HorizontalList from "./src//component/HorizontalList";
-import { filterRestaurantName, formatPrice } from "./src/util/utils";
+import {
+  filterRestaurantName,
+  formatPrice,
+  filterCategories
+} from "./src/util/utils";
 import { FlatGrid } from "react-native-super-grid";
 
 const instructions = Platform.select({
@@ -23,6 +27,7 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
+    console.log(filterCategories());
     return (
       <View style={styles.container}>
         <View>
@@ -53,7 +58,8 @@ export default class App extends Component<Props> {
                 <Text style={{}}>{item.SHOP_NAME}</Text>
                 <View style={{ flexDirection: "row" }}>
                   <Text style={{}}>
-                    {formatPrice(item.PRICE.toString()) - (formatPrice(item.PRICE.toString())*item.DISCOUNT*.01)}
+                    {formatPrice(item.PRICE.toString()) -
+                      formatPrice(item.PRICE.toString()) * item.DISCOUNT * 0.01}
                   </Text>
                   <Text
                     style={{
