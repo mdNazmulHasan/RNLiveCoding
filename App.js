@@ -9,7 +9,8 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View, Image } from "react-native";
 import mockData from "./src/util/mock/mockdata";
-import HorizontalList from "./src//component/HorizontalList";
+import HorizontalList from "./src/component/HorizontalList";
+import CategoriesList from "./src/component/CategoriesList";
 import {
   filterRestaurantName,
   formatPrice,
@@ -48,28 +49,36 @@ export default class App extends Component<Props> {
           <FlatGrid
             itemDimension={130}
             items={mockData}
-            renderItem={({ item }) => (
-              <View style={{}}>
-                <Image
-                  style={{ height: 50 }}
-                  source={{ uri: `${item.IMAGE}` }}
-                />
-                <Text style={{}}>{item.FOOD_NAME}</Text>
-                <Text style={{}}>{item.SHOP_NAME}</Text>
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={{}}>
-                    {formatPrice(item.PRICE.toString()) -
-                      formatPrice(item.PRICE.toString()) * item.DISCOUNT * 0.01}
-                  </Text>
-                  <Text
-                    style={{
-                      marginLeft: 5,
-                      textDecorationLine: "line-through"
-                    }}
-                  >
-                    {item.PRICE}
-                  </Text>
+            renderItem={({ item, index }) => (
+              <View>
+                <View style={{}}>
+                  <Image
+                    style={{ height: 50 }}
+                    source={{ uri: `${item.IMAGE}` }}
+                  />
+                  <Text style={{}}>{item.FOOD_NAME}</Text>
+                  <Text style={{}}>{item.SHOP_NAME}</Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{}}>
+                      {formatPrice(item.PRICE.toString()) -
+                        formatPrice(item.PRICE.toString()) *
+                          item.DISCOUNT *
+                          0.01}
+                    </Text>
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                        textDecorationLine: "line-through"
+                      }}
+                    >
+                      {item.PRICE}
+                    </Text>
+                  </View>
                 </View>
+
+                {index === 6 ? (
+                  <CategoriesList categories={filterCategories()} />
+                ) : null}
               </View>
             )}
           />
