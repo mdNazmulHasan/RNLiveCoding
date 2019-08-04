@@ -9,6 +9,8 @@
 import React, { Component } from "react";
 import { Platform, StyleSheet, Text, View } from "react-native";
 import mockData from "./src/util/mock/mockdata";
+import HorizontalList from "./src//component/HorizontalList";
+import { filterRestaurantName } from "./src/util/utils";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -19,10 +21,29 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.inputRef = {};
+    this.state = {
+      restaurantData: [
+        {
+          name: "temp1"
+        },
+        {
+          name: "temp2"
+        }
+      ]
+    };
+  }
   render() {
+    console.log(filterRestaurantName());
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>{mockData[0].FOOD_NAME}</Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.welcome}>Popular restaurants</Text>
+          <Text style={styles.welcome}>View All</Text>
+        </View>
+        <HorizontalList restaurant={this.state.restaurantData} />
       </View>
     );
   }
@@ -31,8 +52,6 @@ export default class App extends Component<Props> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#F5FCFF"
   },
   welcome: {
