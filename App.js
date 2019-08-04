@@ -21,29 +21,18 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
-  constructor(props) {
-    super(props);
-    this.inputRef = {};
-    this.state = {
-      restaurantData: [
-        {
-          name: "temp1"
-        },
-        {
-          name: "temp2"
-        }
-      ]
-    };
-  }
+  
   render() {
-    console.log(filterRestaurantName());
     return (
       <View style={styles.container}>
         <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
           <Text style={styles.welcome}>Popular restaurants</Text>
           <Text style={styles.welcome}>View All</Text>
         </View>
-        <HorizontalList restaurant={this.state.restaurantData} />
+        <HorizontalList restaurant={filterRestaurantName()} />
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <Text style={styles.welcome}>Popular foods</Text>
+        </View>
       </View>
     );
   }
