@@ -7,10 +7,11 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View } from "react-native";
+import { Platform, StyleSheet, Text, View, Image } from "react-native";
 import mockData from "./src/util/mock/mockdata";
 import HorizontalList from "./src//component/HorizontalList";
-import { filterRestaurantName } from "./src/util/utils";
+import { filterRestaurantName, formatPrice } from "./src/util/utils";
+import { FlatGrid } from "react-native-super-grid";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -21,17 +22,51 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
-  
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.welcome}>Popular restaurants</Text>
-          <Text style={styles.welcome}>View All</Text>
+        <View>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between"
+            }}
+          >
+            <Text style={styles.welcome}>Popular restaurants</Text>
+            <Text style={styles.welcome}>View All</Text>
+          </View>
+          <HorizontalList restaurant={filterRestaurantName()} />
         </View>
-        <HorizontalList restaurant={filterRestaurantName()} />
-        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-          <Text style={styles.welcome}>Popular foods</Text>
+
+        <View style={{ flex: 12 }}>
+          <Text style={{ fontSize: 20 }}>Popular foods</Text>
+          <FlatGrid
+            itemDimension={130}
+            items={mockData}
+            renderItem={({ item }) => (
+              <View style={{}}>
+                <Image
+                  style={{ height: 50 }}
+                  source={{ uri: `${item.IMAGE}` }}
+                />
+                <Text style={{}}>{item.FOOD_NAME}</Text>
+                <Text style={{}}>{item.SHOP_NAME}</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={{}}>
+                    {formatPrice(item.PRICE.toString()) - (formatPrice(item.PRICE.toString())*item.DISCOUNT*.01)}
+                  </Text>
+                  <Text
+                    style={{
+                      marginLeft: 5,
+                      textDecorationLine: "line-through"
+                    }}
+                  >
+                    {item.PRICE}
+                  </Text>
+                </View>
+              </View>
+            )}
+          />
         </View>
       </View>
     );

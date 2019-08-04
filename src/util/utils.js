@@ -11,3 +11,8 @@ export const filterRestaurantName = () => {
   });
   return [...new Set(restaurantArray)];
 };
+export const formatPrice = price => {
+  let s = price.replace(",", "");
+  var i = parseInt(s, 10);
+  return i;
+};
